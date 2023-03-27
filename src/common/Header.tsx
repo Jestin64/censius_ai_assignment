@@ -34,6 +34,7 @@ const useStyles = makeStyles<any>()((theme, lightTheme) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
+      alignItems: "center",
     },
     searchIcon: {
       transform: "translate(-52px, 1px)",
