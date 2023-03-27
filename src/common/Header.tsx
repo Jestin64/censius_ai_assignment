@@ -20,7 +20,7 @@ const useStyles = makeStyles()((theme) => {
       marginLeft: "30vw",
       display: "flex",
       [theme.breakpoints.down("md")]: {
-        fontSize: "15px",
+        fontSize: "25px",
       },
     },
   };

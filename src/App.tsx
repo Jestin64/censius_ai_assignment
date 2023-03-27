@@ -7,8 +7,6 @@ import NavigationSection from "./components/NavigationSection";
 const useStyles = makeStyles()((theme) => {
   return {
     root: {
-      // for constrast sake testing
-      backgroundColor: "black",
       height: "100vh",
       width: "100vw",
       overflow: "hidden",

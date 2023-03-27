@@ -37,17 +37,27 @@ const useStyles = makeStyles()((theme) => {
     },
     navigationIcon: {
       fontSize: "50px",
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
     },
     navigationItemText: {
       alignSelf: "center",
       margin: "0 0 0 0.2rem",
       fontSize: "30px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "20px",
+        padding: "10px",
+      },
     },
 
-    contenAreaContainer: {
+    contentAreaContainer: {
       backgroundColor: "#F3F4F6",
       borderRadius: "30px",
       width: "100%",
+      overflow: "scroll",
+      paddingBottom: "15vh",
+      // background: `rgba() url('https://wallpapercave.com/wp/jUnB9YS.jpg')`,
     },
 
     activeNavigationItem: {
@@ -80,7 +90,7 @@ const data = [
   {
     initial: "ZZ",
     name: "ZZ Gundam",
-    model: "RX-78",
+    model: "MSZ-010",
   },
   {
     initial: "93",
@@ -90,12 +100,12 @@ const data = [
   {
     initial: "WG",
     name: "Wing Gundam",
-    model: "RX-78",
+    model: "XXXG-01W",
   },
   {
     initial: "VG",
     name: "Victory Gundam",
-    model: "RX-78",
+    model: "LM312V04",
   },
 ];
 
@@ -179,7 +189,7 @@ const ContentArea = ({
     }
   };
 
-  return <div className={classes.contenAreaContainer}>{getContent()}</div>;
+  return <div className={classes.contentAreaContainer}>{getContent()}</div>;
 };
 
 const NavigationSection = () => {
