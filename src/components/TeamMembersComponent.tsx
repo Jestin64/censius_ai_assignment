@@ -1,11 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
+import { appTheme } from "../common/styles";
 
-interface TeamMembersProps {
-  data: any;
-}
-
-const useStyles = makeStyles()((theme) => {
+const useStyles = makeStyles<any>()((theme, lightTheme) => {
   return {
     teamMemberContainer: {
       display: "flex",
@@ -18,9 +16,12 @@ const useStyles = makeStyles()((theme) => {
       flexWrap: "wrap",
     },
     cardItem: {
+      zIndex: 9,
       minWidth: "150px",
       justifyContent: "center",
-      backgroundColor: "#F9FAFB",
+      background: lightTheme.lightTheme
+        ? appTheme.lightCardColor
+        : appTheme.darkCardColor,
       display: "flex",
       alignSelf: "center",
       alignContent: "center",
@@ -36,7 +37,9 @@ const useStyles = makeStyles()((theme) => {
       color: "#F3F4F6",
     },
     itemName: {
-      color: "#111827",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
       fontFamily: "Inter",
       fontStyle: "normal",
       fontWeight: 600,
@@ -45,7 +48,9 @@ const useStyles = makeStyles()((theme) => {
       margin: "10px 0 ",
     },
     itemModel: {
-      color: "#6B7280",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
       fontFamily: "Inter",
       fontStyle: "normal",
       fontWeight: 600,
@@ -56,8 +61,14 @@ const useStyles = makeStyles()((theme) => {
   };
 });
 
-const TeamMembersComponent = ({ data }: TeamMembersProps) => {
-  const { classes } = useStyles();
+interface TeamMembersProps {
+  data: any;
+  lightTheme: boolean;
+}
+
+const TeamMembersComponent = ({ data, lightTheme }: TeamMembersProps) => {
+  const { classes } = useStyles({ lightTheme });
+
   return (
     <div className={classes.teamMemberContainer}>
       {/* too much of a pain to resolve */}

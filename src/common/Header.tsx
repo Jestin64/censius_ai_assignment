@@ -1,17 +1,22 @@
 import React from "react";
-import { makeStyles, withStyles } from "tss-react/mui";
+import { makeStyles } from "tss-react/mui";
+import { appTheme } from "./styles";
 
-const useStyles = makeStyles()((theme) => {
+const useStyles = makeStyles<any>()((theme, lightTheme) => {
   return {
     root: {
-      background: "#F9FAFB",
+      background: lightTheme.lightTheme
+        ? appTheme.lightBgColor
+        : appTheme.darkBgColor,
       borderRadius: "0px",
       width: "100%",
       display: "flex",
       flexDirection: "row",
     },
     teamMembers: {
-      color: "#1F2937",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
       fontFamily: "Inter",
       fontStyle: "normal",
       fontWeight: "600",
@@ -27,11 +32,11 @@ const useStyles = makeStyles()((theme) => {
 });
 
 interface headerProps {
-  theme: boolean;
+  lightTheme: boolean;
 }
 
-const Header = ({ theme }: headerProps) => {
-  const { classes } = useStyles();
+const Header = ({ lightTheme }: headerProps) => {
+  const { classes } = useStyles({ lightTheme });
   return (
     <div className={classes.root}>
       <div className={classes.teamMembers}>Team Members</div>
