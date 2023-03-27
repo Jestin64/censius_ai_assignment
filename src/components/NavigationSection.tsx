@@ -93,51 +93,6 @@ const useStyles = makeStyles<any>()((theme, lightTheme) => {
   };
 });
 
-const data = [
-  {
-    initial: "78",
-    name: "Gundam",
-    model: "RX-78",
-    link: "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
-  },
-  {
-    initial: "MKII",
-    name: "Gundam Mark II",
-    model: "RX-178",
-    link: "https://gundam.fandom.com/wiki/RX-178_Gundam_Mk-II",
-  },
-  {
-    initial: "ZG",
-    name: "Zeta Gundam",
-    model: "MSZ-006",
-    link: "https://gundam.fandom.com/wiki/Mobile_Suit_Zeta_Gundam?so=search",
-  },
-  {
-    initial: "ZZ",
-    name: "ZZ Gundam",
-    model: "MSZ-010",
-    link: "https://gundam.fandom.com/wiki/SSMS-010_ZZ_Gundam",
-  },
-  {
-    initial: "93",
-    name: "Nu Gundam",
-    model: "RX-93",
-    link: "https://gundam.fandom.com/wiki/RX-93_%CE%BD_Gundam",
-  },
-  {
-    initial: "WG",
-    name: "Wing Gundam",
-    model: "XXXG-01W",
-    link: "https://gundam.fandom.com/wiki/XXXG-00W0_Wing_Gundam_Zero_EW",
-  },
-  {
-    initial: "VG",
-    name: "Victory Gundam",
-    model: "LM312V04",
-    link: "https://gundam.fandom.com/wiki/Mobile_Suit_Victory_Gundam?so=search",
-  },
-];
-
 interface SideBarProps {
   classes: any;
   activeItem: string;
@@ -150,6 +105,7 @@ interface ContentAreaProps {
   activeItem: string;
   setActiveItem: any;
   lightTheme: boolean;
+  filteredData: any;
 }
 
 const SideBar = ({
@@ -206,11 +162,14 @@ const ContentArea = ({
   activeItem,
   setActiveItem,
   lightTheme,
+  filteredData,
 }: ContentAreaProps) => {
   const getContent = () => {
     switch (activeItem) {
       case "teamMembers":
-        return <TeamMembersComponent data={data} lightTheme={lightTheme} />;
+        return (
+          <TeamMembersComponent data={filteredData} lightTheme={lightTheme} />
+        );
 
       case "products":
         return <ProductsComponent />;
@@ -228,10 +187,9 @@ const ContentArea = ({
   );
 };
 
-const NavigationSection = ({ lightTheme }: any) => {
+const NavigationSection = ({ lightTheme, filteredData }: any) => {
   const { classes } = useStyles({ lightTheme });
   const [activeItem, setActiveItem] = useState<string>("teamMembers");
-
   const handleOnSideBarClick = (item: string) => {
     setActiveItem(item);
   };
@@ -249,6 +207,7 @@ const NavigationSection = ({ lightTheme }: any) => {
         activeItem={activeItem}
         setActiveItem={setActiveItem}
         lightTheme={lightTheme}
+        filteredData={filteredData}
       />
     </div>
   );

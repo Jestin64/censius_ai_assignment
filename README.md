@@ -10,3 +10,5 @@ This is a react-typescript UI project assignment built entirely with common, pop
 # How to run
 
 cd into the repo and run yarn start, 
+
+search query searches for data name, the middle field of the data

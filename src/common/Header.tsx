@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "tss-react/mui";
 import { appTheme } from "./styles";
+import SearchIcon from "@mui/icons-material/Search";
 
 const useStyles = makeStyles<any>()((theme, lightTheme) => {
   return {
@@ -12,6 +13,7 @@ const useStyles = makeStyles<any>()((theme, lightTheme) => {
       width: "100%",
       display: "flex",
       flexDirection: "row",
+      justifyContent: "space-evenly",
     },
     teamMembers: {
       color: lightTheme.lightTheme
@@ -28,21 +30,53 @@ const useStyles = makeStyles<any>()((theme, lightTheme) => {
         fontSize: "25px",
       },
     },
+    searchField: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+    },
+    searchIcon: {
+      transform: "translate(-52px, 1px)",
+    },
+    inputField: {
+      width: "250px",
+      borderRadius: "15px",
+      height: "35px",
+      margin: "20px",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
+    },
   };
 });
 
 interface headerProps {
   lightTheme: boolean;
+  searchTerm: string;
+  setSearchTerm: any;
+  handleSearchInputChange: any;
 }
 
-const Header = ({ lightTheme }: headerProps) => {
+const Header = ({
+  lightTheme,
+  searchTerm,
+  handleSearchInputChange,
+}: headerProps) => {
   const { classes } = useStyles({ lightTheme });
+
   return (
     <div className={classes.root}>
       <div className={classes.teamMembers}>Team Members</div>
-      {/* todo */}
-      {/* search field,*/}
-      <div></div>
+      <div className={classes.searchField}>
+        <input
+          className={classes.inputField}
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchInputChange}
+        />
+        <SearchIcon className={classes.searchIcon} />
+      </div>
     </div>
   );
 };
