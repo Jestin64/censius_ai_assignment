@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/censius_ai_assignment/static/css/main.521bd709.css",
+    "main.js": "/censius_ai_assignment/static/js/main.c4975f6b.js",
+    "index.html": "/censius_ai_assignment/index.html",
+    "main.521bd709.css.map": "/censius_ai_assignment/static/css/main.521bd709.css.map",
+    "main.c4975f6b.js.map": "/censius_ai_assignment/static/js/main.c4975f6b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.521bd709.css",
+    "static/js/main.c4975f6b.js"
+  ]
+}
