@@ -7,8 +7,9 @@ import clsx from "clsx";
 import TeamMembersComponent from "./TeamMembersComponent";
 import ProductsComponent from "./ProductsComponent";
 import InboxComponent from "./InboxComponent";
+import { appTheme } from "../common/styles";
 
-const useStyles = makeStyles()((theme) => {
+const useStyles = makeStyles<any>()((theme, lightTheme) => {
   return {
     root: {
       display: "flex",
@@ -16,13 +17,17 @@ const useStyles = makeStyles()((theme) => {
       height: "-webkit-fill-available",
     },
     sideBarRoot: {
-      backgroundColor: "#F9FAFB",
+      background: lightTheme.lightTheme
+        ? appTheme.lightBgColor
+        : appTheme.darkBgColor,
       width: "23vw",
       display: "flex",
       flexDirection: "column",
       padding: "2% 0",
     },
     navigationItemsContainer: {
+      zIndex: 9,
+
       display: "flex",
       flexDirection: "column",
       alignSelf: "center",
@@ -37,6 +42,9 @@ const useStyles = makeStyles()((theme) => {
     },
     navigationIcon: {
       fontSize: "50px",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
       [theme.breakpoints.down("md")]: {
         display: "none",
       },
@@ -45,6 +53,9 @@ const useStyles = makeStyles()((theme) => {
       alignSelf: "center",
       margin: "0 0 0 0.2rem",
       fontSize: "30px",
+      color: lightTheme.lightTheme
+        ? appTheme.lightTextColor
+        : appTheme.darkTextColor,
       [theme.breakpoints.down("md")]: {
         fontSize: "20px",
         padding: "10px",
@@ -52,12 +63,13 @@ const useStyles = makeStyles()((theme) => {
     },
 
     contentAreaContainer: {
-      backgroundColor: "#F3F4F6",
+      backgroundColor: lightTheme.lightTheme
+        ? appTheme.lightContentColor
+        : appTheme.darkContentColor,
       borderRadius: "30px",
       width: "100%",
       overflow: "scroll",
       paddingBottom: "15vh",
-      // background: `rgba() url('https://wallpapercave.com/wp/jUnB9YS.jpg')`,
     },
 
     activeNavigationItem: {
@@ -68,46 +80,18 @@ const useStyles = makeStyles()((theme) => {
       backgroundColor: "#2563EB",
       color: "#F3F4F6",
     },
+    bgPic: {
+      background: `url(https://eskipaper.com/images/gundam-10.jpg)`,
+      opacity: 0.2,
+      position: "absolute",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      height: "-webkit-fill-available",
+      width: "-webkit-fill-available",
+      overflow: "hidden",
+    },
   };
 });
-
-const data = [
-  {
-    initial: "78",
-    name: "Gundam",
-    model: "RX-78",
-  },
-  {
-    initial: "MKII",
-    name: "Gundam Mark II",
-    model: "RX-178",
-  },
-  {
-    initial: "ZG",
-    name: "Zeta Gundam",
-    model: "MSZ-006",
-  },
-  {
-    initial: "ZZ",
-    name: "ZZ Gundam",
-    model: "MSZ-010",
-  },
-  {
-    initial: "93",
-    name: "Nu Gundam",
-    model: "RX-93",
-  },
-  {
-    initial: "WG",
-    name: "Wing Gundam",
-    model: "XXXG-01W",
-  },
-  {
-    initial: "VG",
-    name: "Victory Gundam",
-    model: "LM312V04",
-  },
-];
 
 interface SideBarProps {
   classes: any;
@@ -120,6 +104,8 @@ interface ContentAreaProps {
   classes: any;
   activeItem: string;
   setActiveItem: any;
+  lightTheme: boolean;
+  filteredData: any;
 }
 
 const SideBar = ({
@@ -175,11 +161,15 @@ const ContentArea = ({
   classes,
   activeItem,
   setActiveItem,
+  lightTheme,
+  filteredData,
 }: ContentAreaProps) => {
   const getContent = () => {
     switch (activeItem) {
       case "teamMembers":
-        return <TeamMembersComponent data={data} />;
+        return (
+          <TeamMembersComponent data={filteredData} lightTheme={lightTheme} />
+        );
 
       case "products":
         return <ProductsComponent />;
@@ -189,13 +179,17 @@ const ContentArea = ({
     }
   };
 
-  return <div className={classes.contentAreaContainer}>{getContent()}</div>;
+  return (
+    <>
+      <div className={classes.bgPic}></div>
+      <div className={classes.contentAreaContainer}>{getContent()}</div>;
+    </>
+  );
 };
 
-const NavigationSection = () => {
-  const { classes } = useStyles();
+const NavigationSection = ({ lightTheme, filteredData }: any) => {
+  const { classes } = useStyles({ lightTheme });
   const [activeItem, setActiveItem] = useState<string>("teamMembers");
-
   const handleOnSideBarClick = (item: string) => {
     setActiveItem(item);
   };
@@ -212,6 +206,8 @@ const NavigationSection = () => {
         classes={classes}
         activeItem={activeItem}
         setActiveItem={setActiveItem}
+        lightTheme={lightTheme}
+        filteredData={filteredData}
       />
     </div>
   );
